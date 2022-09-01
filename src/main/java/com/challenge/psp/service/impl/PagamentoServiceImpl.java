@@ -1,5 +1,6 @@
 package com.challenge.psp.service.impl;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -57,6 +58,19 @@ public class PagamentoServiceImpl implements PagamentoService {
 		
 		return pagamento;
 		
+	}
+
+	@Override
+	public BigDecimal pago() {
+		
+		
+		return null;
+	}
+
+	@Override
+	public BigDecimal aReceber() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

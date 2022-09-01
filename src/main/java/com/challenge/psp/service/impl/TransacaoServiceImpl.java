@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.challenge.psp.exception.TransacaoInvalidaException;
 import com.challenge.psp.model.entity.Transacao;
+import com.challenge.psp.model.enums.MetodoPagamento;
+import com.challenge.psp.model.enums.Status;
 import com.challenge.psp.model.repository.TransacaoRepository;
 import com.challenge.psp.service.TransacaoService;
 
@@ -25,7 +27,9 @@ public class TransacaoServiceImpl implements TransacaoService {
 	
 	@Override
 	public List<Transacao> listarTransacao() {
-		return repository.findAll();
+		List<Transacao> listar=repository.findAll();
+		
+		return listar;
 	}
 
 	@Override
@@ -68,6 +72,30 @@ public class TransacaoServiceImpl implements TransacaoService {
 			throw new TransacaoInvalidaException("Codigode verificação do cartão (CVV)");
 		}
 		
+		
+		Double taxa=transacao.getValorTransacao().doubleValue();
+		if(transacao.getMetodoPagamento()==MetodoPagamento.DEBITO) {
+			taxa=taxa-(taxa*0.03);
+		}
+		
+		if(transacao.getMetodoPagamento()==MetodoPagamento.CREDITO) {
+			taxa=taxa-(taxa*0.05);
+		}
+		transacao.setValorTransacao(BigDecimal.valueOf(taxa));
+		
+	}
+
+	@Override
+	public BigDecimal pago() {
+		BigDecimal receita=repository.obterPago();
+		
+		return receita;
+	}
+
+	@Override
+	public BigDecimal aReceber() {
+		BigDecimal receita=repository.obterAReceber();
+		return receita;
 	}
 
 }

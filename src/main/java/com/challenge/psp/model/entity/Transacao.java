@@ -62,7 +62,7 @@ public class Transacao {
 	private Integer cvv;
 	
 	@JoinColumn(name = "id_pagamento")
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	private Pagamento idPagamento;
 	
 	

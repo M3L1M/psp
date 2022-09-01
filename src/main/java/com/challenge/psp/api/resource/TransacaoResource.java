@@ -1,5 +1,6 @@
 package com.challenge.psp.api.resource;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,7 @@ public class TransacaoResource {
 	@GetMapping
 	public ResponseEntity listarTransacoes() {
 		List<Transacao> listar=service.listarTransacao();
+		
 		return new ResponseEntity(listar,HttpStatus.OK);
 	}
 	
@@ -55,6 +57,21 @@ public class TransacaoResource {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 	}
+	
+	@GetMapping("/pago")
+	public ResponseEntity obterPago() {
+		BigDecimal pago=service.pago();
+		
+		return ResponseEntity.ok(pago);
+	}
+	
+	@GetMapping("/receber")
+	public ResponseEntity obterAReceber() {
+		BigDecimal receber=service.aReceber();
+		
+		return ResponseEntity.ok(receber);
+	}
+	
 	
 	
 	
